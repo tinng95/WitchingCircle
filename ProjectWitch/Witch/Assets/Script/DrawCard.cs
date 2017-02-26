@@ -20,10 +20,6 @@ public class DrawCard : MonoBehaviour {
 
     public void getCard()
     {
-        
-        
-
-
         while (Hand.childCount < 5)
         {
             Debug.Log("Hand Count is " + Hand.childCount);

@@ -7,6 +7,7 @@ public class BattleState : MonoBehaviour {
     public GameObject EndTurnButton;
     public GameObject Hand;
     public GameObject Board;
+    public GameObject MonsterArea;
     public enum State
     {
         START,
@@ -22,7 +23,7 @@ public class BattleState : MonoBehaviour {
     }
 
     private State currentState;
-
+    private int isMove = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -39,15 +40,36 @@ public class BattleState : MonoBehaviour {
                 DrawCardButton.GetComponent<DrawCard>().getCard();
 
                 //generate monster,ENEMY_SPAWN
-
-
+                MonsterArea.GetComponent<SpawnMonster>().getCard();
+                MonsterArea.GetComponent<SpawnMonster>().getCard();
                 //go to PLAYERCHOICE
                 currentState = State.PLAYERCHOICE;
                 break;
 
             case (State.PLAYERCHOICE):
+                isMove++;
+                if (isMove == 1)
+                {
+                //Reset the END TURN BUTTON
+                    EndTurnButton.GetComponent<EndTurn>().updateToOn();
+                //let player move cards
+                    for (int i = 0; i < Hand.transform.childCount; i++)
+                    {
+                        Hand.transform.GetChild(i).GetComponent<Draggable>().updateIsDragable();
+                    }
+                }
                 //set up board, left to right stat calculation
-                //end turn to go to STATUS_CALCULATE
+                //lock player move cards when END TURN BUTTON HIT!
+                if (EndTurnButton.GetComponent<EndTurn>().isButtonActive == false)
+                {
+                    Debug.Log("in loop the state is: " + EndTurnButton.GetComponent<EndTurn>().isButtonActive);
+                    for (int i = 0; i < Hand.transform.childCount; i++)
+                    {
+                        Hand.transform.GetChild(i).GetComponent<Draggable>().updateIsDragable();
+                    }
+                    currentState = State.STATUS_CALCULATE;
+                    isMove = 0;
+                }
                 break;
 
             case (State.STATUS_CALCULATE):
