@@ -31,7 +31,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 	}
 	
 	public void OnDrag(PointerEventData eventData) {
-		//Debug.Log ("OnDrag");
+		Debug.Log ("OnDrag");
 		
 		this.transform.position = eventData.position;
 
@@ -41,7 +41,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 		int newSiblingIndex = placeholderParent.childCount;
 
 		for(int i=0; i < placeholderParent.childCount; i++) {
-			if(this.transform.position.x < placeholderParent.GetChild(i).position.x) {
+			if(this.transform.position.x < placeholderParent.GetChild(i).position.x 
+                && this.transform.position.y < placeholderParent.GetChild(i).position.y)
+            {
 
 				newSiblingIndex = i;
 
