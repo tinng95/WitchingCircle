@@ -3,6 +3,10 @@ using System.Collections;
 
 public class BattleState : MonoBehaviour {
 
+    public GameObject DrawCardButton;
+    public GameObject EndTurnButton;
+    public GameObject Hand;
+    public GameObject Board;
     public enum State
     {
         START,
@@ -19,6 +23,7 @@ public class BattleState : MonoBehaviour {
 
     private State currentState;
 
+
 	// Use this for initialization
 	void Start () {
         currentState = State.START;
@@ -27,13 +32,17 @@ public class BattleState : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Debug.Log(currentState);
-
         switch (currentState)
         {
             case (State.START):
-                //draw init cards, DRAW
+                //drawCards
+                DrawCardButton.GetComponent<DrawCard>().getCard();
+
                 //generate monster,ENEMY_SPAWN
+
+
                 //go to PLAYERCHOICE
+                currentState = State.PLAYERCHOICE;
                 break;
 
             case (State.PLAYERCHOICE):
