@@ -16,7 +16,7 @@ public class SpawnMonster : MonoBehaviour {
 
     public void getCard()
     {
-        while (MonsterBoard.childCount < 3)
+        while (MonsterBoard.childCount < 1)
         {
             Debug.Log("Hand Count is " + MonsterBoard.childCount);
             type = (CardType)Random.Range(0, (int)CardType.ELITE + 1);

@@ -8,6 +8,7 @@ public class BattleState : MonoBehaviour {
     public GameObject Hand;
     public GameObject Board;
     public GameObject MonsterArea;
+    public GameObject Player;
     public enum State
     {
         START,
@@ -24,10 +25,12 @@ public class BattleState : MonoBehaviour {
 
     private State currentState;
     private int isMove = 0;
+    private float startTime;
 
 	// Use this for initialization
 	void Start () {
         currentState = State.START;
+        Player.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -74,15 +77,36 @@ public class BattleState : MonoBehaviour {
 
             case (State.STATUS_CALCULATE):
                 //Stack attack, draw.. etc from left to right
+                //remove cards on board
+                for (int i = 0; i < Board.transform.childCount; i++)
+                {
+                    Destroy(Board.transform.GetChild(i).gameObject);
+                }
                 //go to PLAYER_ATTACK
+                currentState = State.PLAYER_ATTACK;
                 break;
 
             case (State.PLAYER_ATTACK):
+
                 //Play Player animation
+                if (isMove == 0)
+                {
+                    Player.GetComponent<PlayerAttack>().playerAttack();
+                    isMove++;
+                }
                 //Attack monster
                 //if monster->live, go to ENEMY_ATTACK
                 //if monster->die, go to ENEMY_DEAFEAT
+                else {
+                    if (Player.GetComponent<PlayerAttack>().isVisible == false)
+                    {
+                        Debug.Log("Go here");
+                        currentState = State.ENEMY_ATTACK;
+                    }
+
+                }
                 break;
+
             case (State.ENEMY_ATTACK):
                 //counter count down
                 //if counter = 0; go to LOSE
@@ -93,7 +117,9 @@ public class BattleState : MonoBehaviour {
             case (State.DRAW):
                 //if CARD < max, draw card
                 //if CARD = max, destroy new card
+                DrawCardButton.GetComponent<DrawCard>().getCard();
                 //go to PLAYERCHOICE;
+                currentState = State.PLAYERCHOICE;
                 break;
 
             case (State.ENEMY_DEAFEAT):
@@ -117,4 +143,5 @@ public class BattleState : MonoBehaviour {
 
         }
 	}
+    
 }
