@@ -70,7 +70,7 @@ public class BattleState : MonoBehaviour {
                 //let player move cards
                     for (int i = 0; i < Hand.transform.childCount; i++)
                     {
-                        Hand.transform.GetChild(i).GetComponent<Draggable>().updateIsDragable();
+                        Hand.transform.GetChild(i).GetComponent<Draggable>().updateToTrueIsDragable();
                     }
                 }
                 //set up board, left to right stat calculation
@@ -80,7 +80,7 @@ public class BattleState : MonoBehaviour {
                     Debug.Log("in loop the state is: " + EndTurnButton.GetComponent<EndTurn>().isButtonActive);
                     for (int i = 0; i < Hand.transform.childCount; i++)
                     {
-                        Hand.transform.GetChild(i).GetComponent<Draggable>().updateIsDragable();
+                        Hand.transform.GetChild(i).GetComponent<Draggable>().updateToFalseIsDragable();
                     }
                     currentState = State.STATUS_CALCULATE;
                     isMove = 0;

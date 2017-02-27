@@ -75,7 +75,16 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             Destroy(placeholder);
         }
 	}
-	public void updateIsDragable()
+    public void updateToTrueIsDragable()
+    {
+        isDragable = true;
+    }
+    public void updateToFalseIsDragable()
+    {
+        isDragable = false;
+    }
+
+    public void updateIsDragable()
     {
     
         if(isDragable == true)
