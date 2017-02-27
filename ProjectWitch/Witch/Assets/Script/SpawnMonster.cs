@@ -18,9 +18,10 @@ public class SpawnMonster : MonoBehaviour {
     {
         while (MonsterBoard.childCount < 1)
         {
-            Debug.Log("Hand Count is " + MonsterBoard.childCount);
             type = (CardType)Random.Range(0, (int)CardType.ELITE + 1);
             CardClone = Instantiate(Cards[(int)type], transform.position, Quaternion.identity) as GameObject;
+            CardClone.GetComponent<MonsterStats>().setMonster();
+            Debug.Log("This new Monster health is: " + CardClone.GetComponent<MonsterStats>().getHealth());
             CardClone.transform.SetParent(MonsterBoard);
         }
     }

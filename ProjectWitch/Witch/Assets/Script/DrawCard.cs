@@ -22,7 +22,6 @@ public class DrawCard : MonoBehaviour {
     {
         while (Hand.childCount < 5)
         {
-            Debug.Log("Hand Count is " + Hand.childCount);
             type = (CardType)Random.Range(0, (int)CardType.CARD4 + 1);
             CardClone = Instantiate(Cards[(int)type], transform.position, Quaternion.identity) as GameObject;
             CardClone.transform.SetParent(Hand);
