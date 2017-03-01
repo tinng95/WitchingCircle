@@ -10,6 +10,8 @@ public class BattleState : MonoBehaviour {
     public GameObject MonsterArea;
     public GameObject Player;
     public GameObject Monster;
+
+    private GameObject board;
     public enum State
     {
         START,
@@ -36,6 +38,8 @@ public class BattleState : MonoBehaviour {
 	void Start () {
         currentState = State.START;
         Player.SetActive(false);
+        this.board = Board;
+        board.GetComponent<CardCombo>().setCombo();
 	}
 	
 	// Update is called once per frame
@@ -45,7 +49,7 @@ public class BattleState : MonoBehaviour {
         {
             case (State.START):
                 //drawCards
-                DrawCardButton.GetComponent<DrawCard>().getCard();
+                DrawCardButton.GetComponent<DrawCard>().getCard(5, false);
 
                 //generate monster,ENEMY_SPAWN
                 MonsterArea.GetComponent<SpawnMonster>().getCard();
@@ -77,27 +81,14 @@ public class BattleState : MonoBehaviour {
                 //lock player move cards when END TURN BUTTON HIT!
                 if (EndTurnButton.GetComponent<EndTurn>().isButtonActive == false)
                 {
-                    Debug.Log("in loop the state is: " + EndTurnButton.GetComponent<EndTurn>().isButtonActive);
+                    //Debug.Log("in loop the state is: " + EndTurnButton.GetComponent<EndTurn>().isButtonActive);
                     for (int i = 0; i < Hand.transform.childCount; i++)
                     {
                         Hand.transform.GetChild(i).GetComponent<Draggable>().updateToFalseIsDragable();
                     }
-                    currentState = State.STATUS_CALCULATE;
+                    currentState = State.PLAYER_ATTACK;
                     isMove = 0;
                 }
-                break;
-
-            case (State.STATUS_CALCULATE):
-                //Stack attack, draw.. etc from left to right
-                //remove cards on board
-                
-                for (int i = 0; i < Board.transform.childCount; i++)
-                {
-                    damage++;
-                    Destroy(Board.transform.GetChild(i).gameObject);
-                }
-                //go to PLAYER_ATTACK
-                currentState = State.PLAYER_ATTACK;
                 break;
 
             case (State.PLAYER_ATTACK):
@@ -106,34 +97,62 @@ public class BattleState : MonoBehaviour {
                 {
                     Player.GetComponent<PlayerAttack>().playerAttack();
                     isMove++;
-                } 
+                }
+                //move to STATUS_CALCULATE
                 else {
                     if (Player.GetComponent<PlayerAttack>().isVisible == false)
                     {
-                        //Attack monster
-                        Debug.Log("ATTACK MONSTER WITH: " + damage + " damage");
-                        for (int i = 0; i < MonsterArea.transform.childCount; i++)
-                        {
-                            MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(damage);
-                            Debug.Log("Current monster health is: " +
-                         MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().getHealth());
-                        }
-                        damage = 0;
-                        //if monster->live, go to ENEMY_ATTACK
-                        if (MonsterArea.GetComponentInChildren<MonsterStats>().getHealth() > 0)
-                        {
-                            currentState = State.ENEMY_ATTACK;
-                        }
-                        //if monster->die, go to ENEMY_DEAFEAT
-                        else
-                        {
-                            Destroy(MonsterArea.transform.GetChild(0).gameObject);
-                            currentState = State.ENEMY_DEAFEAT;
-                        }
-                        isMove = 0;                       
+                        isMove = 0;
+                        currentState = State.STATUS_CALCULATE;
                     }
 
                 }
+                break;
+
+            case (State.STATUS_CALCULATE):
+                //Stack attack, draw.. etc from left to right
+                Debug.Log("In PLAYER_ATTACK, BOARD HAVE: " + Board.transform.childCount);
+
+                //If card == 2, do COMBO
+                if (Board.transform.childCount == 2)
+                {
+                    Board.GetComponent<CardCombo>().comboCheck();
+
+                }
+                //ELSE, Attack monster
+                else
+                {
+                    for (int i = 0; i < Board.transform.childCount; i++)
+                    {
+                        damage++;
+                    }
+                    Debug.Log("ATTACK MONSTER WITH: " + damage + " damage");
+                    for (int i = 0; i < MonsterArea.transform.childCount; i++)
+                    {
+                        MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(damage);
+                        Debug.Log("Current monster health is: " +
+                     MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().getHealth());
+                    }
+                    damage = 0;
+                }
+                //remove cards on boar
+                for (int i = 0; i < Board.transform.childCount; i++)
+                {
+                    damage++;
+                    Destroy(Board.transform.GetChild(i).gameObject);
+                }
+                ////if monster->live, go to ENEMY_ATTACK
+                if (MonsterArea.GetComponentInChildren<MonsterStats>().getHealth() > 0)
+                {
+                    currentState = State.ENEMY_ATTACK;
+                }
+                //if monster->die, go to ENEMY_DEAFEAT
+                else
+                {
+                    Destroy(MonsterArea.transform.GetChild(0).gameObject);
+                    currentState = State.ENEMY_DEAFEAT;
+                }
+                Debug.Log("GOT AT LEAST TO HERE!!");
                 break;
 
             case (State.ENEMY_ATTACK):
@@ -168,16 +187,13 @@ public class BattleState : MonoBehaviour {
                         currentState = State.DRAW;
                     }
                 }
-                
-            
-                
                 //go to DRAW
                 break;
 
             case (State.DRAW):
                 //if CARD < max, draw card
                 //if CARD = max, destroy new card
-                DrawCardButton.GetComponent<DrawCard>().getCard();
+                DrawCardButton.GetComponent<DrawCard>().getCard(2, true);
                 //go to PLAYERCHOICE;
                 currentState = State.PLAYERCHOICE;
                 break;
