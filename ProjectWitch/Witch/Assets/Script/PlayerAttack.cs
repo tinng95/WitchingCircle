@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour {
     {
         player.SetActive(true);
         isVisible = true;
-        StartCoroutine(DoSomething(3.0f));
+        StartCoroutine(DoSomething(1.5f));
     }
 
     IEnumerator DoSomething(float seconds)

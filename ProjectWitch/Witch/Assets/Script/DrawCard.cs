@@ -20,7 +20,7 @@ public class DrawCard : MonoBehaviour {
 
     public void getCard()
     {
-        StartCoroutine(DoSomething(0.5f));
+        StartCoroutine(DoSomething(0.3f));
     }
     IEnumerator DoSomething(float seconds)
     {
