@@ -13,10 +13,11 @@ public class DrawCard : MonoBehaviour {
 
     public  GameObject[] Cards;
     public Transform Hand = null;
-
+    //private Transform hand;
     private GameObject CardClone;
     private CardType type;
 
+   
     public void getCard(int numDraw, bool drawState)
     {
         StartCoroutine(DoSomething(0.3f, numDraw, drawState));
@@ -60,15 +61,12 @@ public class DrawCard : MonoBehaviour {
        
     }
 
+    
     public void getSpecificCard(string cardName)
     {
-        waitOnSpecificCard(0.3f, cardName);
-    }
+        //waitOnSpecificCard(0.3f, cardName);
+        Debug.Log("CURRENT HAND ISSSSS: " + Hand);
 
-
-    IEnumerator waitOnSpecificCard(float seconds, string cardName)
-    {
-        yield return new WaitForSeconds(seconds);
         int cardNum = 0;
         if (cardName == "RED")
         {
@@ -82,9 +80,17 @@ public class DrawCard : MonoBehaviour {
         {
             cardNum = 2;
         }
+        Debug.Log("CURRENT HAND ISSSSS: " + Hand);
         CardClone = Instantiate(Cards[cardNum], transform.position, Quaternion.identity) as GameObject;
         CardClone.GetComponent<CardStats>().setCard();
         CardClone.transform.SetParent(Hand);
-    
+    }
+
+
+    IEnumerator waitOnSpecificCard(float seconds, string cardName)
+    {
+
+        yield return new WaitForSeconds(seconds);
+        
     }
 }

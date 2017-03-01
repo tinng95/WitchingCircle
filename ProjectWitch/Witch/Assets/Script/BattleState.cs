@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class BattleState : MonoBehaviour {
-
+    public GameObject PopUp;
     public GameObject EndTurnButton;
     public GameObject Hand;
     public GameObject Board;

@@ -7,8 +7,10 @@ public class CardCombo : MonoBehaviour {
     public GameObject Board = null;
     public GameObject Hand = null;
     public GameObject MonsterArea = null;
+    public GameObject PopUp = null;
     private GameObject board;
     private GameObject hand;
+    private GameObject discover;
     private GameObject monsterArea;
     public enum CardType
     {
@@ -22,7 +24,7 @@ public class CardCombo : MonoBehaviour {
         this.board = Board;
         this.hand = Hand;
         this.monsterArea = MonsterArea;
-
+        this.discover = PopUp;
     }
 
     public void comboCheck () {
@@ -98,6 +100,7 @@ public class CardCombo : MonoBehaviour {
     {
         Debug.Log("Converting " + currentCard + " to " + newCard + " BEGIN!!!");
         int currentType = 0;
+        PopUp.GetComponent<DiscoverCard>().chooseCard(currentCard, newCard);
         for (int i = 0; i < hand.transform.childCount; i++)
         {
             if (hand.transform.GetChild(i).GetComponent<CardStats>().getName() == currentCard)
