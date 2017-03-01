@@ -25,9 +25,11 @@ public class SpawnMonster : MonoBehaviour {
         {
             yield return new WaitForSeconds(seconds);
             type = (CardType)Random.Range(0, (int)CardType.ELITE + 1);
-            CardClone = Instantiate(Cards[1], transform.position, Quaternion.identity) as GameObject;
+            CardClone = Instantiate(Cards[(int)type], transform.position, Quaternion.identity) as GameObject;
             CardClone.GetComponent<MonsterStats>().setMonster();
             Debug.Log("This new Monster health is: " + CardClone.GetComponent<MonsterStats>().getHealth());
+            CardClone.GetComponent<CardTextModifier>().setData(
+                CardClone.GetComponent<MonsterStats>().getHealth(), CardClone.GetComponent<MonsterStats>().getCounter());
             CardClone.transform.SetParent(MonsterBoard);
         }
     }

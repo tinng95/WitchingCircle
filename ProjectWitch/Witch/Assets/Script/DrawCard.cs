@@ -34,7 +34,7 @@ public class DrawCard : MonoBehaviour {
                     CardClone.GetComponent<CardStats>().setCard();
                     CardClone.GetComponent<Draggable>().updateToTrueIsDragable();
                     CardClone.transform.SetParent(Hand);
-                    Debug.Log("The card is: " + i);
+                    //Debug.Log("The card is: " + i);
                     yield return new WaitForSeconds(seconds);
                 }
             }
@@ -51,7 +51,7 @@ public class DrawCard : MonoBehaviour {
                     CardClone.GetComponent<Draggable>().updateToTrueIsDragable();
                     CardClone.transform.SetParent(Hand);
 
-                    Debug.Log("The card is: " + i);
+                    //Debug.Log("The card is: " + i);
                     yield return new WaitForSeconds(seconds);
                 }
               
@@ -62,6 +62,13 @@ public class DrawCard : MonoBehaviour {
 
     public void getSpecificCard(string cardName)
     {
+        waitOnSpecificCard(0.3f, cardName);
+    }
+
+
+    IEnumerator waitOnSpecificCard(float seconds, string cardName)
+    {
+        yield return new WaitForSeconds(seconds);
         int cardNum = 0;
         if (cardName == "RED")
         {
@@ -78,5 +85,6 @@ public class DrawCard : MonoBehaviour {
         CardClone = Instantiate(Cards[cardNum], transform.position, Quaternion.identity) as GameObject;
         CardClone.GetComponent<CardStats>().setCard();
         CardClone.transform.SetParent(Hand);
+    
     }
 }

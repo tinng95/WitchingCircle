@@ -20,7 +20,6 @@ public class PlayerAttack : MonoBehaviour {
     IEnumerator DoSomething(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        Debug.Log("waited Success");
         player.SetActive(false);
         isVisible = false;
     }

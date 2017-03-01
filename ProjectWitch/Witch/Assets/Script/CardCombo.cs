@@ -7,11 +7,9 @@ public class CardCombo : MonoBehaviour {
     public GameObject Board = null;
     public GameObject Hand = null;
     public GameObject MonsterArea = null;
-    public GameObject DrawCardButton = null;
     private GameObject board;
     private GameObject hand;
     private GameObject monsterArea;
-    private GameObject drawCardButton;
     public enum CardType
     {
         RED,
@@ -24,7 +22,7 @@ public class CardCombo : MonoBehaviour {
         this.board = Board;
         this.hand = Hand;
         this.monsterArea = MonsterArea;
-        this.drawCardButton = DrawCardButton;
+
     }
 
     public void comboCheck () {
@@ -55,7 +53,7 @@ public class CardCombo : MonoBehaviour {
         if (blueCount == 2)
         {
             Debug.Log("2 BLUE IN!!!");
-            drawCardButton.GetComponent<DrawCard>().getCard(3, false);
+            hand.GetComponent<DrawCard>().getCard(3, false);
             Debug.Log("2 BLUE OUT!!!");
         } 
         //RR  deal 3 dmg instancely
@@ -63,11 +61,8 @@ public class CardCombo : MonoBehaviour {
         {
             for (int i = 0; i < MonsterArea.transform.childCount; i++)
             {
-                Debug.Log("2 RED IN!!!");
                 monsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(3);
-                Debug.Log("Current monster health is: " +
-             MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().getHealth());
-                Debug.Log("2 RED OUT!!!");
+                monsterArea.transform.GetChild(i).GetComponent<CardTextModifier>().updateCardData();
             }
         }
         //GG convert all left over GREEN card in hand to w/e Color you want, right now just to RED
@@ -90,11 +85,9 @@ public class CardCombo : MonoBehaviour {
         {
             for (int i = 0; i < MonsterArea.transform.childCount; i++)
             {
-                Debug.Log("BR IN!!!");
                 monsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(2);
-                Debug.Log("Current monster health is: " +
-             MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().getHealth());
-                drawCardButton.GetComponent<DrawCard>().getCard(1, false);
+                monsterArea.transform.GetChild(i).GetComponent<CardTextModifier>().updateCardData();
+                hand.GetComponent<DrawCard>().getCard(1, false);
 
                 Debug.Log("BR OUT!!!");
             }
@@ -123,7 +116,7 @@ public class CardCombo : MonoBehaviour {
         }
         for (int i = 0; i < currentType; i++)
         {
-            drawCardButton.GetComponent<DrawCard>().getSpecificCard(newCard);
+            hand.GetComponent<DrawCard>().getSpecificCard(newCard);
         }
 
         Debug.Log("Converting " + currentCard + " to " + newCard + " END!!!");
