@@ -9,7 +9,7 @@ public class BattleState : MonoBehaviour {
     public GameObject MonsterArea;
     public GameObject Player;
     public GameObject Monster;
-
+    public GameObject EndScreen;
     private GameObject board;
     public enum State
     {
@@ -39,6 +39,7 @@ public class BattleState : MonoBehaviour {
         Player.SetActive(false);
         this.board = Board;
         board.GetComponent<CardCombo>().setCombo();
+        EndScreen.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -219,17 +220,22 @@ public class BattleState : MonoBehaviour {
             case (State.WIN):
                 //Open LOSE Screen
                 Debug.Log("CONGRAT, YOU HAVE WON THIS STAGE!!!");
+                EndScreen.GetComponent<EndGame>().setCondition("WIN");
+                EndScreen.SetActive(true);
                 //Prompt replay
                 //if YES, reloop to START
                 //if NO, terminate
-
+                //EndScreen.GetComponent<EndGame>().pick();
                 break;
             case (State.LOSE):
                 //Open LOSE Screen
                 Debug.Log("Sorry, you lost.");
+                EndScreen.GetComponent<EndGame>().setCondition("LOSE");
+                EndScreen.SetActive(true);
                 //Prompt replay
                 //if YES, reloop to START
                 //if NO, terminate
+                //EndScreen.GetComponent<EndGame>().pick();
                 break;
 
         }
