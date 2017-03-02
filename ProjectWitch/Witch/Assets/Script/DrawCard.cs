@@ -31,6 +31,7 @@ public class DrawCard : MonoBehaviour {
                 if (Hand.childCount < 5)
                 {
                     type = (CardType)Random.Range(0, (int)CardType.GREEN + 1);
+                    //CardClone = Instantiate(Cards[2], transform.position, Quaternion.identity) as GameObject;
                     CardClone = Instantiate(Cards[(int)type], transform.position, Quaternion.identity) as GameObject;
                     CardClone.GetComponent<CardStats>().setCard();
                     CardClone.GetComponent<Draggable>().updateToTrueIsDragable();
@@ -47,6 +48,7 @@ public class DrawCard : MonoBehaviour {
                 if(Hand.childCount < 7)
                 {
                     type = (CardType)Random.Range(0, (int)CardType.GREEN + 1);
+                    //CardClone = Instantiate(Cards[2], transform.position, Quaternion.identity) as GameObject;
                     CardClone = Instantiate(Cards[(int)type], transform.position, Quaternion.identity) as GameObject;
                     CardClone.GetComponent<CardStats>().setCard();
                     CardClone.GetComponent<Draggable>().updateToTrueIsDragable();
@@ -80,7 +82,6 @@ public class DrawCard : MonoBehaviour {
         {
             cardNum = 2;
         }
-        Debug.Log("CURRENT HAND ISSSSS: " + Hand);
         CardClone = Instantiate(Cards[cardNum], transform.position, Quaternion.identity) as GameObject;
         CardClone.GetComponent<CardStats>().setCard();
         CardClone.transform.SetParent(Hand);

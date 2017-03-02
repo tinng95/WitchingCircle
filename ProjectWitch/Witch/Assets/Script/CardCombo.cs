@@ -10,7 +10,6 @@ public class CardCombo : MonoBehaviour {
     public GameObject PopUp = null;
     private GameObject board;
     private GameObject hand;
-    private GameObject discover;
     private GameObject monsterArea;
     public enum CardType
     {
@@ -24,7 +23,7 @@ public class CardCombo : MonoBehaviour {
         this.board = Board;
         this.hand = Hand;
         this.monsterArea = MonsterArea;
-        this.discover = PopUp;
+        //this.discover = PopUp;
     }
 
     public void comboCheck () {
@@ -70,17 +69,20 @@ public class CardCombo : MonoBehaviour {
         //GG convert all left over GREEN card in hand to w/e Color you want, right now just to RED
         else if (greenCount == 2)
         {
-            cardConversion("GREEN", "RED");
+            PopUp.GetComponent<DiscoverCard>().chooseCard("BLUE", "RED");
+            //cardConversion("GREEN", "RED");
         }
         //GB All BLUE TO GREEN
         else if (greenCount == 1 && blueCount == 1)
         {
-            cardConversion("BLUE", "GREEN");
+            PopUp.GetComponent<DiscoverCard>().chooseCard("RED", "GREEN");
+            //cardConversion("BLUE", "GREEN");
         }
         //GR All RED TO GREEN
         else if (greenCount == 1 && redCount == 1)
         {
-            cardConversion("RED", "GREEN");
+            PopUp.GetComponent<DiscoverCard>().chooseCard("BLUE", "GREEN");
+            //cardConversion("RED", "GREEN");
         }
         //BR
         else if (blueCount == 1 && redCount == 1)
@@ -90,17 +92,13 @@ public class CardCombo : MonoBehaviour {
                 monsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(2);
                 monsterArea.transform.GetChild(i).GetComponent<CardTextModifier>().updateCardData();
                 hand.GetComponent<DrawCard>().getCard(1, false);
-
-                Debug.Log("BR OUT!!!");
             }
         }
     }
 
     public void cardConversion(string currentCard, string newCard)
     {
-        Debug.Log("Converting " + currentCard + " to " + newCard + " BEGIN!!!");
         int currentType = 0;
-        PopUp.GetComponent<DiscoverCard>().chooseCard(currentCard, newCard);
         for (int i = 0; i < hand.transform.childCount; i++)
         {
             if (hand.transform.GetChild(i).GetComponent<CardStats>().getName() == currentCard)
@@ -113,7 +111,6 @@ public class CardCombo : MonoBehaviour {
 
             if (hand.transform.GetChild(i).GetComponent<CardStats>().getName() == currentCard)
             {
-                Debug.Log("WENT IN HEREREREEER!!");
                 Destroy(hand.transform.GetChild(i).gameObject);
             }
         }
@@ -121,8 +118,6 @@ public class CardCombo : MonoBehaviour {
         {
             hand.GetComponent<DrawCard>().getSpecificCard(newCard);
         }
-
-        Debug.Log("Converting " + currentCard + " to " + newCard + " END!!!");
     }
 
 }

@@ -109,46 +109,50 @@ public class BattleState : MonoBehaviour {
                 break;
 
             case (State.STATUS_CALCULATE):
-                //Stack attack, draw.. etc from left to right
-                Debug.Log("In PLAYER_ATTACK, BOARD HAVE: " + Board.transform.childCount);
-
                 //If card == 2, do COMBO
-                if (Board.transform.childCount == 2)
+                if(isMove == 0)
                 {
-                    Board.GetComponent<CardCombo>().comboCheck();
+                    if (Board.transform.childCount == 2)
+                    {
+                        Board.GetComponent<CardCombo>().comboCheck();
+                    }
+                    //ELSE, Attack monster
+                    else
+                    {
+                        for (int i = 0; i < Board.transform.childCount; i++)
+                        {
+                            damage++;
+                        }
+                        Debug.Log("ATTACK MONSTER WITH: " + damage + " damage");
+                        for (int i = 0; i < MonsterArea.transform.childCount; i++)
+                        {
+                            MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(damage);
+                            MonsterArea.transform.GetChild(i).GetComponent<CardTextModifier>().updateCardData();
+                        }
+                        damage = 0;
+                    }
+                    isMove++;
                 }
-                //ELSE, Attack monster
-                else
+                //remove cards on boar
+                if(PopUp.GetComponent<DiscoverCard>().getIsDisUp() == false)
                 {
                     for (int i = 0; i < Board.transform.childCount; i++)
                     {
-                        damage++;
+                        Destroy(Board.transform.GetChild(i).gameObject);
                     }
-                    Debug.Log("ATTACK MONSTER WITH: " + damage + " damage");
-                    for (int i = 0; i < MonsterArea.transform.childCount; i++)
+                    ////if monster->live, go to ENEMY_ATTACK
+                    if (MonsterArea.GetComponentInChildren<MonsterStats>().getHealth() > 0)
                     {
-                        MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(damage);
-                        MonsterArea.transform.GetChild(i).GetComponent<CardTextModifier>().updateCardData();
+                        currentState = State.ENEMY_ATTACK;
                     }
-                    damage = 0;
-                }
 
-                //remove cards on boar
-                for (int i = 0; i < Board.transform.childCount; i++)
-                {
-                    Destroy(Board.transform.GetChild(i).gameObject);
-                }
-                ////if monster->live, go to ENEMY_ATTACK
-                if (MonsterArea.GetComponentInChildren<MonsterStats>().getHealth() > 0)
-                {
-                    currentState = State.ENEMY_ATTACK;
-                }
-
-                //if monster->die, go to ENEMY_DEAFEAT
-                else
-                {
-                    Destroy(MonsterArea.transform.GetChild(0).gameObject);
-                    currentState = State.ENEMY_DEAFEAT;
+                    //if monster->die, go to ENEMY_DEAFEAT
+                    else
+                    {
+                        Destroy(MonsterArea.transform.GetChild(0).gameObject);
+                        currentState = State.ENEMY_DEAFEAT;
+                    }
+                    isMove = 0;
                 }
                 break;
 

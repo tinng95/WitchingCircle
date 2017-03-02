@@ -4,38 +4,69 @@ using UnityEngine.UI;
 public class DiscoverCard : MonoBehaviour {
 
     public GameObject PopUp = null;
-    public Button option1;
-    public Button option2;
+    public GameObject Board = null;
+
+    public Button leftCard;
+    public Button rightCard;
     private GameObject popUp;
     private bool isDisUp = false;
+
     void Start()
     {
         popUp = PopUp;
         popUp.SetActive(false);
     }
 
-    public void chooseCard(string card1, string card2)
+    public void chooseCard(string left, string right)
     {
         popUp.SetActive(true);
         if (isDisUp == false)
         {
             isDisUp = true;
-            Debug.Log("WTF!!!");
-            popUp.GetComponent<DrawCard>().getSpecificCard(card1);
-            popUp.GetComponent<DrawCard>().getSpecificCard(card2);
+            
+            popUp.GetComponent<DrawCard>().getSpecificCard(left);
+            popUp.GetComponent<DrawCard>().getSpecificCard(right);
         }
-        
 
-        option1 = popUp.transform.GetChild(0).GetComponent<Button>();
-        option2 = popUp.transform.GetChild(1).GetComponent<Button>();
-        
-        option1.interactable = true;
-        option2.interactable = true;
-        option1.onClick.AddListener(TaskOnClick);
-        option2.onClick.AddListener(TaskOnClick);
+        leftCard = popUp.transform.GetChild(0).GetComponent<Button>();
+        rightCard = popUp.transform.GetChild(1).GetComponent<Button>();
+
+        leftCard.interactable = true;
+        rightCard.interactable = true;
+
+        //GG GREEN TO BLUE OR RED
+        if(left == "BLUE" && right == "RED")
+        {
+            leftCard.onClick.AddListener(delegate { TaskOnClick(left, "GREEN"); });
+            rightCard.onClick.AddListener(delegate { TaskOnClick(right, "GREEN"); });
+        }
+        //BG all blue to RED OR GREEN
+        else if (left == "RED" && right == "GREEN")
+        {
+            leftCard.onClick.AddListener(delegate { TaskOnClick(left, "BLUE"); });
+            rightCard.onClick.AddListener(delegate { TaskOnClick(right, "BLUE"); });
+        }
+        //RG all blue to BLUE OR GREEN
+        else if (left == "BLUE" && right == "GREEN")
+        {
+            leftCard.onClick.AddListener(delegate { TaskOnClick(left, "RED"); });
+            rightCard.onClick.AddListener(delegate { TaskOnClick(right, "RED"); });
+        }
     }
-    void TaskOnClick()
+    void TaskOnClick(string cardPick, string cardDiscard)
     {
-        Debug.Log("You have clicked the button!");
+        Debug.Log("WILL REPLACE " + cardDiscard + " with " + cardPick);
+        Board.GetComponent<CardCombo>().cardConversion(cardDiscard, cardPick);
+        for (int i = 0; i < popUp.transform.childCount; i++)
+        {
+            Destroy(popUp.transform.GetChild(i).gameObject);
+        }
+        popUp.SetActive(false);
+        isDisUp = false;
+    }
+
+    public bool getIsDisUp()
+    {
+        return isDisUp;
     }
 }
