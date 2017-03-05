@@ -9,7 +9,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 	public Transform placeholderParent = null;
     private bool isDragable = false;
 	GameObject placeholder = null;
-	
+    //private int AccualCard = 0;
 	public void OnBeginDrag(PointerEventData eventData) {
         if (isDragable)
         {
@@ -39,7 +39,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             //Debug.Log("OnDrag");
 
             this.transform.position = eventData.position;
-
+            /*
             if (placeholder.transform.parent != placeholderParent)
                 placeholder.transform.SetParent(placeholderParent);
 
@@ -61,7 +61,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             }
 
             placeholder.transform.SetSiblingIndex(newSiblingIndex);
-
+            */
         }
     }
 	
@@ -71,10 +71,11 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             this.transform.SetParent(parentToReturnTo);
             this.transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());
             GetComponent<CanvasGroup>().blocksRaycasts = true;
-
             Destroy(placeholder);
         }
 	}
+
+
     public void updateToTrueIsDragable()
     {
         isDragable = true;

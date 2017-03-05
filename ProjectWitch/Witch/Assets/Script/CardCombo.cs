@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class CardCombo : MonoBehaviour {
 
 
@@ -17,7 +18,10 @@ public class CardCombo : MonoBehaviour {
         BLUE,
         GREEN
     }
-
+    //string comboText;
+    int redCount = 0;
+    int greenCount = 0;
+    int blueCount = 0;
     public void setCombo()
     {
         this.board = Board;
@@ -27,12 +31,17 @@ public class CardCombo : MonoBehaviour {
     }
 
     public void comboCheck () {
-        int redCount = 0;
-        int greenCount = 0;
-        int blueCount = 0;
+        redCount = 0;
+        greenCount = 0;
+        blueCount = 0;
         string temp;
+        //Debug.Log("CURRENT NUMBER OF CARD IS: " + board.transform.childCount);
         for (int i = 0; i< board.transform.childCount; i++)
         {
+            if(board.transform.GetChild(i).gameObject)
+            {
+                //Debug.Log(board.transform.GetChild(i));
+            }
             temp = board.transform.GetChild(i).GetComponent<CardStats>().getName();
 
             if (temp == "BLUE")
@@ -48,15 +57,52 @@ public class CardCombo : MonoBehaviour {
                 greenCount++;
             }
         }
+    }
 
+    public string getComboName()
+    {
         //COMBO
         //BB  draw 3 card instancely
         if (blueCount == 2)
         {
-            Debug.Log("2 BLUE IN!!!");
+            return "Draw 3 Cards";
+        }
+        //RR  deal 3 dmg instancely
+        else if (redCount == 2)
+        {
+            return "Deal 3 Damages";
+        }
+        //GG convert all left over GREEN card in hand to w/e Color you want, right now just to RED
+        else if (greenCount == 2)
+        {
+            return "Convert GREEN In Hand to RED or BLUE";
+        }
+        //GB All BLUE TO GREEN
+        else if (greenCount == 1 && blueCount == 1)
+        {
+            return "Convert BLUE In Hand to GREEN or RED";
+        }
+        //GR All RED TO GREEN
+        else if (greenCount == 1 && redCount == 1)
+        {
+            return "Convert RED In Hand to GREEN or BLUE";
+        }
+        //BR
+        else if (blueCount == 1 && redCount == 1)
+        {
+            return "Deal 2 Damages, Draw 1 Card";
+        }
+        return "ERRROR!!";
+    }
+
+    public void comboAction()
+    {
+        //COMBO
+        //BB  draw 3 card instancely
+        if (blueCount == 2)
+        {
             hand.GetComponent<DrawCard>().getCard(3, false);
-            Debug.Log("2 BLUE OUT!!!");
-        } 
+        }
         //RR  deal 3 dmg instancely
         else if (redCount == 2)
         {
@@ -95,7 +141,6 @@ public class CardCombo : MonoBehaviour {
             }
         }
     }
-
     public void cardConversion(string currentCard, string newCard)
     {
         int currentType = 0;

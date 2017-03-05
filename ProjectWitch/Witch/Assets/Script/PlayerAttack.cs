@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour {
 
     public void Start()
     {
-        player.SetActive(false);
+        //player.SetActive(false);
     }
     public void playerAttack()
     {
@@ -19,6 +19,7 @@ public class PlayerAttack : MonoBehaviour {
 
     IEnumerator DoSomething(float seconds)
     {
+        
         yield return new WaitForSeconds(seconds);
         player.SetActive(false);
         isVisible = false;

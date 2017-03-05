@@ -55,7 +55,7 @@ public class DiscoverCard : MonoBehaviour {
     }
     void TaskOnClick(string cardPick, string cardDiscard)
     {
-        Debug.Log("WILL REPLACE " + cardDiscard + " with " + cardPick);
+        //Debug.Log("WILL REPLACE " + cardDiscard + " with " + cardPick);
         Board.GetComponent<CardCombo>().cardConversion(cardDiscard, cardPick);
         for (int i = 0; i < popUp.transform.childCount; i++)
         {

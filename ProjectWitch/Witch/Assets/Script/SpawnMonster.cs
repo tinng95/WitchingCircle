@@ -5,8 +5,10 @@ public class SpawnMonster : MonoBehaviour {
 
     public enum CardType
     {
+        ELITE,
+        HIGHMANE,
         DEATHWING,
-        ELITE
+        NZOTH
     }
     public GameObject[] Cards;
     public Transform MonsterBoard = null;
@@ -27,10 +29,35 @@ public class SpawnMonster : MonoBehaviour {
             type = (CardType)Random.Range(0, (int)CardType.ELITE + 1);
             CardClone = Instantiate(Cards[(int)type], transform.position, Quaternion.identity) as GameObject;
             CardClone.GetComponent<MonsterStats>().setMonster();
-            Debug.Log("This new Monster health is: " + CardClone.GetComponent<MonsterStats>().getHealth());
             CardClone.GetComponent<CardTextModifier>().setData(
                 CardClone.GetComponent<MonsterStats>().getHealth(), CardClone.GetComponent<MonsterStats>().getCounter());
             CardClone.transform.SetParent(MonsterBoard);
         }
+    }
+
+    public void getSpecificCard(string cardName)
+    {
+
+        int cardNum = 0;
+        if (cardName == "RANDOM")
+        {
+            cardNum = Random.Range(0, 2);
+        }
+        else if (cardName == "DEATHWING")
+        {
+            cardNum = 2;
+        }
+        else if (cardName == "NZOTH")
+        {
+            cardNum = 3;
+        }
+
+        Debug.Log("BEGIN");
+        CardClone = Instantiate(Cards[cardNum], transform.position, Quaternion.identity) as GameObject;
+        CardClone.GetComponent<MonsterStats>().setMonster();
+        CardClone.GetComponent<CardTextModifier>().setData(
+                CardClone.GetComponent<MonsterStats>().getHealth(), CardClone.GetComponent<MonsterStats>().getCounter());
+        CardClone.transform.SetParent(MonsterBoard);
+        Debug.Log("END");
     }
 }

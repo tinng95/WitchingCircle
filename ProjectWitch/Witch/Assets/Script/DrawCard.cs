@@ -67,7 +67,7 @@ public class DrawCard : MonoBehaviour {
     public void getSpecificCard(string cardName)
     {
         //waitOnSpecificCard(0.3f, cardName);
-        Debug.Log("CURRENT HAND ISSSSS: " + Hand);
+        //Debug.Log("CURRENT HAND ISSSSS: " + Hand);
 
         int cardNum = 0;
         if (cardName == "RED")
