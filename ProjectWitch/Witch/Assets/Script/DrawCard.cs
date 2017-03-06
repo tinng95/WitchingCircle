@@ -28,7 +28,7 @@ public class DrawCard : MonoBehaviour {
         {
             for (int i = 0; i < numDraw; i++)
             {
-                if (Hand.childCount < 5)
+                if (Hand.childCount < 7)
                 {
                     type = (CardType)Random.Range(0, (int)CardType.GREEN + 1);
                     //CardClone = Instantiate(Cards[2], transform.position, Quaternion.identity) as GameObject;
