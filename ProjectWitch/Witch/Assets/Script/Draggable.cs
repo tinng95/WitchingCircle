@@ -9,6 +9,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 	public Transform placeholderParent = null;
     private bool isDragable = false;
 	GameObject placeholder = null;
+
+    private Vector2 anchoredPosition;
     //private int AccualCard = 0;
 	public void OnBeginDrag(PointerEventData eventData) {
         if (isDragable)
@@ -16,19 +18,28 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             //Debug.Log("OnBeginDrag");
 
             placeholder = new GameObject();
-            placeholder.transform.SetParent(this.transform.parent);
+            placeholder.transform.SetParent(this.transform.parent, false);
             LayoutElement le = placeholder.AddComponent<LayoutElement>();
+
+            
             le.preferredWidth = this.GetComponent<LayoutElement>().preferredWidth;
             le.preferredHeight = this.GetComponent<LayoutElement>().preferredHeight;
+
+
+            
+
             le.flexibleWidth = 0;
             le.flexibleHeight = 0;
 
             placeholder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
 
+            
             parentToReturnTo = this.transform.parent;
+            
             placeholderParent = parentToReturnTo;
-            this.transform.SetParent(this.transform.parent.parent);
-
+            this.transform.SetParent(this.transform.parent.parent,false);
+            Debug.Log("Current Parent is: " + this.transform.parent);
+            Debug.Log("Current POSITION TO PARENT is: " + this.transform.position);
             GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
 	}
@@ -36,9 +47,11 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 	public void OnDrag(PointerEventData eventData) {
         if (isDragable)
         {
-            //Debug.Log("OnDrag");
 
-            this.transform.position = eventData.position;
+            //Debug.Log("OnDrag");
+            this.transform.localPosition = eventData.position;
+
+
             /*
             if (placeholder.transform.parent != placeholderParent)
                 placeholder.transform.SetParent(placeholderParent);
@@ -71,6 +84,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             this.transform.SetParent(parentToReturnTo);
             this.transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());
             GetComponent<CanvasGroup>().blocksRaycasts = true;
+
             Destroy(placeholder);
         }
 	}

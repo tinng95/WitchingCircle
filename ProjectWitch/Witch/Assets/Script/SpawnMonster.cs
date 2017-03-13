@@ -31,7 +31,7 @@ public class SpawnMonster : MonoBehaviour {
             CardClone.GetComponent<MonsterStats>().setMonster();
             CardClone.GetComponent<CardTextModifier>().setData(
                 CardClone.GetComponent<MonsterStats>().getHealth(), CardClone.GetComponent<MonsterStats>().getCounter());
-            CardClone.transform.SetParent(MonsterBoard);
+            CardClone.transform.SetParent(MonsterBoard, false);
         }
     }
 
@@ -57,7 +57,7 @@ public class SpawnMonster : MonoBehaviour {
         CardClone.GetComponent<MonsterStats>().setMonster();
         CardClone.GetComponent<CardTextModifier>().setData(
                 CardClone.GetComponent<MonsterStats>().getHealth(), CardClone.GetComponent<MonsterStats>().getCounter());
-        CardClone.transform.SetParent(MonsterBoard);
+        CardClone.transform.SetParent(MonsterBoard, false);
         Debug.Log("END");
     }
 }
