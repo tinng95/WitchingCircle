@@ -308,7 +308,7 @@ public class BattleState : MonoBehaviour {
             //if counter !=0; show anymation, GO TO DRAW
             if (currentState != State.LOSE)
             {
-                Monster.GetComponent<PlayerAttack>().playerAttack();
+                //Monster.GetComponent<PlayerAttack>().playerAttack();
 
                 StartCoroutine(HoldTime(1.5f));
 
