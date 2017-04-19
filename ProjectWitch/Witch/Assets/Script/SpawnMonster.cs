@@ -52,12 +52,12 @@ public class SpawnMonster : MonoBehaviour {
             cardNum = 3;
         }
 
-        Debug.Log("BEGIN");
+       // Debug.Log("BEGIN");
         CardClone = Instantiate(Cards[cardNum], transform.position, Quaternion.identity) as GameObject;
         CardClone.GetComponent<MonsterStats>().setMonster();
         CardClone.GetComponent<CardTextModifier>().setData(
                 CardClone.GetComponent<MonsterStats>().getHealth(), CardClone.GetComponent<MonsterStats>().getCounter());
         CardClone.transform.SetParent(MonsterBoard, false);
-        Debug.Log("END");
+        //Debug.Log("END");
     }
 }

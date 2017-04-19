@@ -52,7 +52,7 @@ public class DrawCard : MonoBehaviour {
                     //CardClone = Instantiate(Cards[2], transform.position, Quaternion.identity) as GameObject;
                     Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
 
-                    Debug.Log("CARD " + i + " position: " + position);
+                    //Debug.Log("CARD " + i + " position: " + position);
                     CardClone = Instantiate(Cards[(int)type], position, Quaternion.identity) as GameObject;
                     CardClone.GetComponent<CardStats>().setCard();
                     CardClone.GetComponent<Draggable>().updateToTrueIsDragable();

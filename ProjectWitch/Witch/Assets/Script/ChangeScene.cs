@@ -16,11 +16,11 @@ public class ChangeScene : MonoBehaviour {
 
     IEnumerator doTemp(string name)
     {
-        Debug.Log("Start");
+        //Debug.Log("Start");
         float fadeTime = GameObject.Find("FadeScreen").GetComponent<Fadding>().beginFade(1);
-        Debug.Log("FADE TIME IS " + fadeTime);
+       // Debug.Log("FADE TIME IS " + fadeTime);
         yield return new WaitForSeconds(fadeTime);
-        Debug.Log("END");
+        //Debug.Log("END");
         SceneManager.LoadScene(1);
     }
 }

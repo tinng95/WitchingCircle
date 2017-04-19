@@ -18,7 +18,7 @@ public class Fadding : MonoBehaviour
 
         GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, alpha);
         GUI.depth = drawDept;
-        Debug.Log("INSIDE FADDING");
+        //Debug.Log("INSIDE FADDING");
         GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fadeOutTexture);
     }
 
