@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class DialogControl : MonoBehaviour
 {
     public Button next;
-
+    public Button skip;
     public string LeftCharName;
     public string RightCharName;
 
@@ -32,6 +32,8 @@ public class DialogControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        skip.gameObject.SetActive(false);
+        skip.onClick.AddListener(Change);
         RightCharDialog.text = RightCharName;
         LeftCharDialog.text = LeftCharName;
         if (TextFile != null)
@@ -85,27 +87,29 @@ public class DialogControl : MonoBehaviour
             DialogBox.SetActive(false);
             LeftCharacter.SetActive(false);
             RightCharacter.SetActive(false);
-            //DialogBox.SetActive(false);
             DialogBoxActive = false;
             next.GetComponent<ChangeScene>().loadScene();
         }
 
         
-        /*
-        if (DialogBoxActive == true && next.onClick.AddListener(TaskOnClick))
-        {
-            CourrentLine++; // increment lines 
-        }
-        */
+        
         MainDialog.text = DialogLines[CourrentLine];
         if (DialogBoxActive == false)
         {
             DisableCharacterNameBox();
             DisableEnemyNameBox();
         }
+        if (CourrentLine == 5)
+        {
+            Debug.Log("HELLLO!");
+            skip.gameObject.SetActive(true);
+        }
     }
 
-
+    void Change()
+    {
+        skip.GetComponent<ChangeScene>().loadScene();
+    }
     void TaskOnClick()
     {
         if(CourrentLine < EndLine)
