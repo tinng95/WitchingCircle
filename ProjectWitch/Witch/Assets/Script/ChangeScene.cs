@@ -3,24 +3,25 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
-public class ChangeScene : MonoBehaviour {
+public class ChangeScene : MonoBehaviour
+{
     public string sceneName;
-    public void loadScene(string name)
+    public void loadScene()
     {
         //sceneName = name;
         //SceneManager.LoadScene(name);
         Debug.Log("ENTER");
-        StartCoroutine(doTemp(name));
+        StartCoroutine(doTemp(sceneName));
         Debug.Log("OUTER");
     }
 
     IEnumerator doTemp(string name)
     {
-        //Debug.Log("Start");
+        Debug.Log("sceneName: " + sceneName);
         float fadeTime = GameObject.Find("FadeScreen").GetComponent<Fadding>().beginFade(1);
-       // Debug.Log("FADE TIME IS " + fadeTime);
+        // Debug.Log("FADE TIME IS " + fadeTime);
         yield return new WaitForSeconds(fadeTime);
         //Debug.Log("END");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(sceneName);
     }
 }
