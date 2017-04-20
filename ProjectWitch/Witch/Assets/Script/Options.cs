@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class Options : MonoBehaviour {
     public GameObject optionMenu;
+    public GameObject volumeMixerMenu;
     public Button optionButton;
     public Button fadeScreen;
 	// Use this for initialization
@@ -16,6 +17,10 @@ public class Options : MonoBehaviour {
 
     void hideOptionMenu()
     {
+        if (volumeMixerMenu.activeInHierarchy)
+        {
+            volumeMixerMenu.SetActive(false);
+        }
         fadeScreen.gameObject.SetActive(false);
         optionMenu.gameObject.SetActive(false);
     }
