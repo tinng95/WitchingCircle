@@ -15,8 +15,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 	public void OnBeginDrag(PointerEventData eventData) {
         if (isDragable)
         {
-            //Debug.Log("OnBeginDrag");
-
             placeholder = new GameObject();
             placeholder.transform.SetParent(this.transform.parent, false);
             LayoutElement le = placeholder.AddComponent<LayoutElement>();
@@ -24,10 +22,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             
             le.preferredWidth = this.GetComponent<LayoutElement>().preferredWidth;
             le.preferredHeight = this.GetComponent<LayoutElement>().preferredHeight;
-
-
-            
-
             le.flexibleWidth = 0;
             le.flexibleHeight = 0;
 
@@ -38,8 +32,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             
             placeholderParent = parentToReturnTo;
             this.transform.SetParent(this.transform.parent.parent,false);
-            Debug.Log("Current Parent is: " + this.transform.parent);
-            Debug.Log("Current POSITION TO PARENT is: " + this.transform.position);
             GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
 	}
