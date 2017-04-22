@@ -38,12 +38,10 @@ public class CardCombo : MonoBehaviour {
         //Debug.Log("CURRENT NUMBER OF CARD IS: " + board.transform.childCount);
         for (int i = 0; i< board.transform.childCount; i++)
         {
-            if(board.transform.GetChild(i).gameObject)
-            {
-                //Debug.Log(board.transform.GetChild(i));
-            }
-            temp = board.transform.GetChild(i).GetComponent<CardStats>().getName();
 
+            
+            temp = board.transform.GetChild(i).GetComponent<CardStats>().getName();
+            Debug.Log("current card: " + temp);
             if (temp == "BLUE")
             {
                 blueCount++;
@@ -61,6 +59,7 @@ public class CardCombo : MonoBehaviour {
 
     public string getComboName()
     {
+
         //COMBO
         //BB  draw 3 card instancely
         if (blueCount == 2)
@@ -92,9 +91,10 @@ public class CardCombo : MonoBehaviour {
         {
             return "Deal 2 Damages, Draw 1 Card";
         }
-        return "ERRROR!!";
+        else {
+            return "ERRROR!!";
+        }
     }
-
     public void comboAction()
     {
         //COMBO

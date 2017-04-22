@@ -7,6 +7,10 @@ public class CardStats : MonoBehaviour
 
     private string pName;
 
+    public void Start()
+    {
+        this.pName = Name;
+    }
     public void setCard()
     {
         this.pName = Name;
