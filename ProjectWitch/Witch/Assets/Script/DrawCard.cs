@@ -32,8 +32,9 @@ public class DrawCard : MonoBehaviour {
                 {
                     type = (CardType)Random.Range(0, (int)CardType.GREEN + 1);
                     //CardClone = Instantiate(Cards[2], transform.position, Quaternion.identity) as GameObject;
-                    Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+                    Vector3 position = new Vector3(transform.position.x, transform.position.y, 0);
                     CardClone = Instantiate(Cards[(int)type], position, Quaternion.identity) as GameObject;
+                    Debug.Log("NEW CARD POSITON IS: " + CardClone.transform.position);
                     CardClone.GetComponent<CardStats>().setCard();
                     CardClone.GetComponent<Draggable>().updateToTrueIsDragable();
                     CardClone.transform.SetParent(Hand,false);
@@ -50,10 +51,11 @@ public class DrawCard : MonoBehaviour {
                 {
                     type = (CardType)Random.Range(0, (int)CardType.GREEN + 1);
                     //CardClone = Instantiate(Cards[2], transform.position, Quaternion.identity) as GameObject;
-                    Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
-
+                    Vector3 position = new Vector3(transform.position.x, transform.position.y, 0);
+                    
                     //Debug.Log("CARD " + i + " position: " + position);
                     CardClone = Instantiate(Cards[(int)type], position, Quaternion.identity) as GameObject;
+                    Debug.Log("NEW CARD POSITON IS: " + CardClone.transform.position);
                     CardClone.GetComponent<CardStats>().setCard();
                     CardClone.GetComponent<Draggable>().updateToTrueIsDragable();
                     CardClone.transform.SetParent(Hand, false);
@@ -86,7 +88,8 @@ public class DrawCard : MonoBehaviour {
         {
             cardNum = 2;
         }
-        Vector3 position = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+        Vector3 position = new Vector3(transform.position.x, transform.position.y, 0);
+        Debug.Log("NEW CARD POSITON IS: " + position);
         CardClone = Instantiate(Cards[cardNum], position, Quaternion.identity) as GameObject;
         CardClone.GetComponent<CardStats>().setCard();
         CardClone.transform.SetParent(Hand, false);

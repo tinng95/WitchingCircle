@@ -137,12 +137,6 @@ public class BattleState : MonoBehaviour {
         //generate monster,ENEMY_SPAWN
         //MonsterArea.GetComponent<SpawnMonster>().getCard();
         MonsterArea.GetComponent<SpawnMonster>().getSpecificCard("RANDOM");
-        for (int i = 0; i < MonsterArea.transform.childCount; i++)
-        {
-            //Debug.Log("Monster name is: " + MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().getName());
-            //Debug.Log("Monster Health is: " + MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().getHealth());
-            //Debug.Log("Monster Counter is: " + MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().getCounter());
-        }
 
         //go to PLAYERCHOICE
         currentState = State.PLAYERCHOICE;

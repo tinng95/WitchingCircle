@@ -9,9 +9,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 	public Transform placeholderParent = null;
     private bool isDragable = false;
 	GameObject placeholder = null;
+    public Vector3 showTemp;
 
-    private Vector2 anchoredPosition;
-    //private int AccualCard = 0;
 	public void OnBeginDrag(PointerEventData eventData) {
         if (isDragable)
         {
@@ -40,11 +39,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (isDragable)
         {
 
-            //Debug.Log("OnDrag");
             this.transform.localPosition = eventData.position;
+            showTemp = this.transform.position;
 
-
-            /*
             if (placeholder.transform.parent != placeholderParent)
                 placeholder.transform.SetParent(placeholderParent);
 
@@ -66,7 +63,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             }
 
             placeholder.transform.SetSiblingIndex(newSiblingIndex);
-            */
+            
         }
     }
 	
