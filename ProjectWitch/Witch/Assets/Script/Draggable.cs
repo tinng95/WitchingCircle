@@ -10,10 +10,12 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private bool isDragable = false;
 	GameObject placeholder = null;
     public Vector3 showTemp;
-
+    
+    public bool dragging = false;
 	public void OnBeginDrag(PointerEventData eventData) {
         if (isDragable)
         {
+            dragging = true;
             placeholder = new GameObject();
             placeholder.transform.SetParent(this.transform.parent, false);
             LayoutElement le = placeholder.AddComponent<LayoutElement>();
@@ -75,6 +77,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             GetComponent<CanvasGroup>().blocksRaycasts = true;
 
             Destroy(placeholder);
+            dragging = false;
         }
 	}
 

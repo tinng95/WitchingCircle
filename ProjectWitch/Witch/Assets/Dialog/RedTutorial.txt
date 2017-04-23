@@ -9,3 +9,35 @@ NEXT
 Over there is the BattleZone.
 We use our Arsenal's Tool to set up tatical attack.
 NEXT
+Drag the Fire Element into the BattleField
+BUTTONOFF
+NEXT
+Once BattleZone set up, I can activate my bow for an attack
+Click on the Bow Button to complete attack
+BUTTONOFF
+Once the bow activated, the turn will be complete.
+NEXT
+The monster health goes down with the ammount of attack I deal.
+NEXT
+The counter will also go down each time I attack.
+If the counter hit 0, it's game over!
+NEXT
+Let see what else we have in the arsenal.
+DRAW
+Great, two Fire Elements!
+NEXT
+This number indicate the max elements I can attack with on the BattleZone
+NEXT
+Let drag both Fire Elements to BattleZone to make a combo!
+BUTTONOFF
+NEXT
+Click on the Bow Button to complete attack
+BUTTONOFF
+Doing combo grant extra effect.
+NEXT
+It's dead!
+DESTROY
+Good Hunt!
+NEXT
+WHO IS THAT?
+END

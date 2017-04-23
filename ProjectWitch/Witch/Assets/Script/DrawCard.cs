@@ -89,7 +89,7 @@ public class DrawCard : MonoBehaviour {
             cardNum = 2;
         }
         Vector3 position = new Vector3(transform.position.x, transform.position.y, 0);
-        Debug.Log("NEW CARD POSITON IS: " + position);
+        //Debug.Log("NEW CARD POSITON IS: " + position);
         CardClone = Instantiate(Cards[cardNum], position, Quaternion.identity) as GameObject;
         CardClone.GetComponent<CardStats>().setCard();
         CardClone.transform.SetParent(Hand, false);
