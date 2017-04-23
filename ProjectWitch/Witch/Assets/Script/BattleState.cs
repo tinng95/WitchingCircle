@@ -8,10 +8,8 @@ public class BattleState : MonoBehaviour {
     public GameObject Hand;
     public GameObject Board;
     public GameObject MonsterArea;
-    public GameObject Player;
     public GameObject MageAttack;
     public GameObject HunterAttack;
-    public GameObject Monster;
     public GameObject EndScreen;
     private GameObject board;
     public enum State
@@ -41,7 +39,6 @@ public class BattleState : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         currentState = State.START;
-        Player.SetActive(false);
         this.board = Board;
         board.GetComponent<CardCombo>().setCombo();
         EndScreen.SetActive(false);
@@ -65,12 +62,6 @@ public class BattleState : MonoBehaviour {
                 //set up board, left to right stat calculation
                 //lock player move cards when END TURN BUTTON HIT!
                 playerChoiceState();
-                break;
-
-            case (State.PLAYER_ATTACK):
-                //Play Player animation
-                //move to STATUS_CALCULATE
-                playerAttackState();
                 break;
 
             case (State.MAGE_ATTACK):
@@ -187,25 +178,6 @@ public class BattleState : MonoBehaviour {
         }
     }
 
-    void playerAttackState()
-    {
-        //Play Player animation
-        if (isMove == 0)
-        {
-            Player.GetComponent<PlayerAttack>().playerAttack();
-            isMove++;
-        }
-        //move to STATUS_CALCULATE
-        else {
-            if (Player.GetComponent<PlayerAttack>().isVisible == false)
-            {
-                isMove = 0;
-                currentState = State.STATUS_CALCULATE;
-            }
-
-        }
-    }
-
     void mageAttackState()
     {
         if (isMove == 0)
@@ -312,7 +284,7 @@ public class BattleState : MonoBehaviour {
             }
         }
         else {
-            if (Monster.GetComponent<PlayerAttack>().isVisible == false && MonsterArea.GetComponent<MonsterAttack>().isDestroyed == true)
+            if (MonsterArea.GetComponent<MonsterAttack>().isDestroyed == true)
             {
                 MonsterArea.GetComponent<MonsterAttack>().isDestroyed = false;
                 isMove = 0;

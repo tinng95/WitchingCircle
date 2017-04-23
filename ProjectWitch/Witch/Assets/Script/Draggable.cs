@@ -39,7 +39,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (isDragable)
         {
 
-            this.transform.localPosition = eventData.position;
+            this.transform.position = eventData.position;
             showTemp = this.transform.position;
 
             if (placeholder.transform.parent != placeholderParent)
