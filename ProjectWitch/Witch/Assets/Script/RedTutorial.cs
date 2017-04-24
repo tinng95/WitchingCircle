@@ -23,6 +23,13 @@ public class RedTutorial : MonoBehaviour {
 
     public bool DialogBoxActive = true;
 
+
+    //guide arrow
+    public GameObject handGuide;
+    public GameObject boardGuide;
+    public GameObject healthGuide;
+    public GameObject counterGuide;
+    public GameObject endTurnGuide;
     //for game set-up
     public GameObject PopUp;
     public GameObject EndTurnButton;
@@ -57,6 +64,11 @@ public class RedTutorial : MonoBehaviour {
     private GameObject temp2;
     // Use this for initialization
     void Start () {
+        endTurnGuide.gameObject.SetActive(false);
+        handGuide.gameObject.SetActive(false);
+        boardGuide.gameObject.SetActive(false);
+        counterGuide.gameObject.SetActive(false);
+        healthGuide.gameObject.SetActive(false);
         next.onClick.AddListener(addLine);
         currentState = State.START_DIALOG;
         MonsterArea.GetComponent<SpawnMonster>().getSpecificCard("ELITE");
@@ -88,31 +100,45 @@ public class RedTutorial : MonoBehaviour {
                 if(isMove == 1) { currentState = State.EXPLAIN_HAND; isMove = 0; };
                 break;
             case (State.EXPLAIN_HAND):
+                handGuide.gameObject.SetActive(true);
                 explainHand();
-                if (isMove == 1) { currentState = State.EXPLAIN_BOARD; isMove = 0; };
+                if (isMove == 1) { currentState = State.EXPLAIN_BOARD; isMove = 0;
+                    handGuide.gameObject.SetActive(false);
+                };
                 break;
             case (State.EXPLAIN_BOARD):
+                boardGuide.gameObject.SetActive(true);
                 explainBoard();
-                if (isMove == 1) { currentState = State.DRAG_CARD; isMove = 0; };
+                if (isMove == 1) { currentState = State.DRAG_CARD; isMove = 0;
+                    boardGuide.gameObject.SetActive(false);
+                };
                 break;
             case (State.DRAG_CARD):
                 dragCard();
-                if (isMove == 1) { currentState = State.EXPLAIN_END_TURN_BUTTON; isMove = 0; };
+                if (isMove == 1) { currentState = State.EXPLAIN_END_TURN_BUTTON; isMove = 0;};
                 break;
             case (State.EXPLAIN_END_TURN_BUTTON):
                 explainEndTurnButton();
-                if (isMove == 1) { currentState = State.ATTACK_MONSTER; isMove = 0; };
+                if (isMove == 1) { currentState = State.ATTACK_MONSTER; isMove = 0;
+                    endTurnGuide.gameObject.SetActive(false);
+                };
                 break;
             case (State.ATTACK_MONSTER):
                 attackMonser();
                 break;
             case (State.EXPLAIN_MONSTER_HEALTH):
+                healthGuide.gameObject.SetActive(true);
                 explainMonsterHealth();
-                if (isMove == 1) { currentState = State.EXPLAIN_MONSTER_COUNTER; isMove = 0; };
+                if (isMove == 1) { currentState = State.EXPLAIN_MONSTER_COUNTER; isMove = 0;
+                    healthGuide.gameObject.SetActive(false);
+                };
                 break;
             case (State.EXPLAIN_MONSTER_COUNTER):
+                counterGuide.gameObject.SetActive(true);
                 explainMonsterCounter();
-                if (isMove == 1) { currentState = State.DRAW_2_CARD; isMove = 0; };
+                if (isMove == 1) { currentState = State.DRAW_2_CARD; isMove = 0;
+                    counterGuide.gameObject.SetActive(false);
+                };
                 break;
             case (State.DRAW_2_CARD):
                 draw2Card();
@@ -172,6 +198,7 @@ public class RedTutorial : MonoBehaviour {
     {
         if (DialogLines[CourrentLine + 1].Contains("BUTTONOFF") && isMove != 2)
         {
+            
             MainDialog.text = DialogLines[CourrentLine];
             isMove = 2;
             Hand.transform.GetChild(0).GetComponent<Draggable>().updateToTrueIsDragable();
@@ -180,7 +207,7 @@ public class RedTutorial : MonoBehaviour {
         }
         if(temp.GetComponent<Draggable>().dragging == false && Board.transform.childCount == 1)
         {
-            CourrentLine+= 2;
+            CourrentLine += 2;
             isMove = 0;
             next.gameObject.SetActive(true);
             temp.GetComponent<Draggable>().updateToFalseIsDragable();
@@ -193,6 +220,7 @@ public class RedTutorial : MonoBehaviour {
     {
         if (DialogLines[CourrentLine + 1].Contains("BUTTONOFF") && isMove != 3)
         {
+            endTurnGuide.gameObject.SetActive(true);
             MainDialog.text = DialogLines[CourrentLine];
             isMove = 3;
             next.gameObject.SetActive(false);
