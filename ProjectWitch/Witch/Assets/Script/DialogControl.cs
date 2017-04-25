@@ -29,9 +29,13 @@ public class DialogControl : MonoBehaviour
     private string BothString = "BOTH";
     private string NoneString = "NONE";
 
+
+    public GameObject redImage;
+
     // Use this for initialization
     void Start()
     {
+        redImage.gameObject.SetActive(false);
         skip.gameObject.SetActive(false);
         skip.onClick.AddListener(Change);
         RightCharDialog.text = RightCharName;
@@ -56,12 +60,14 @@ public class DialogControl : MonoBehaviour
     {
         if (DialogLines[CourrentLine].Contains(LeftCharName))
         {
+            redImage.gameObject.SetActive(true);
             DisableEnemyNameBox();
             EnableCharacterNameBox();
             CourrentLine++;
         }
         else if (DialogLines[CourrentLine].Contains(RightCharName))
         {
+            redImage.gameObject.SetActive(false);
             DisableCharacterNameBox();
             EnableEnemyNameBox();
             CourrentLine++;

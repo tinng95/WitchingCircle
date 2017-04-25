@@ -6,18 +6,19 @@ public class EndTurn : MonoBehaviour {
     public GameObject OFF;
     public GameObject ON;
     public GameObject toolTip;
-    public bool isButtonActive = false;
+    public bool isButtonActive = true;
 
     public void updateToOn()
     {
-        ON.SetActive(true);
-        OFF.SetActive(false);
+        ON.gameObject.SetActive(true);
+        OFF.gameObject.SetActive(false);
         isButtonActive = true;
     }
     public void updateToOff()
     {
-        ON.SetActive(false);
-        OFF.SetActive(true);
+        Debug.Log("TRY TO TURN OFF!");
+        ON.gameObject.SetActive(false);
+        OFF.gameObject.SetActive(true);
         isButtonActive = false;
     }
 

@@ -19,9 +19,9 @@ public class CardCombo : MonoBehaviour {
         GREEN
     }
     //string comboText;
-    int redCount = 0;
-    int greenCount = 0;
-    int blueCount = 0;
+    public int redCount = 0;
+    public int greenCount = 0;
+    public int blueCount = 0;
     public void setCombo()
     {
         this.board = Board;
@@ -35,24 +35,25 @@ public class CardCombo : MonoBehaviour {
         greenCount = 0;
         blueCount = 0;
         string temp;
-        //Debug.Log("CURRENT NUMBER OF CARD IS: " + board.transform.childCount);
-        for (int i = 0; i< board.transform.childCount; i++)
+        Debug.Log("BTICH GIVE ME NUMBER: " + Board.transform.childCount);
+        for (int i = 0; i< Board.transform.childCount; i++)
         {
-
-            
-            temp = board.transform.GetChild(i).GetComponent<CardStats>().getName();
+            temp = Board.transform.GetChild(i).GetComponent<CardStats>().getName();
             Debug.Log("current card: " + temp);
             if (temp == "BLUE")
             {
                 blueCount++;
+                Debug.Log("BLUE card: " + blueCount);
             }
             else if (temp == "RED")
             {
                 redCount++;
+                Debug.Log("RED card: " + redCount);
             }
             else if (temp == "GREEN")
             {
                 greenCount++;
+                Debug.Log("GREEN card: " + greenCount);
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class BattleState : MonoBehaviour {
     public GameObject PopUp;
     public GameObject EndTurnButton;
@@ -12,6 +12,10 @@ public class BattleState : MonoBehaviour {
     public GameObject HunterAttack;
     public GameObject EndScreen;
     private GameObject board;
+
+    public Button Onbutton;
+    public GameObject OFF;
+
     public enum State
     {
         START,
@@ -42,6 +46,7 @@ public class BattleState : MonoBehaviour {
         this.board = Board;
         board.GetComponent<CardCombo>().setCombo();
         EndScreen.SetActive(false);
+        Onbutton.onClick.AddListener(dosomething);
 	}
 	
 	// Update is called once per frame
@@ -135,48 +140,50 @@ public class BattleState : MonoBehaviour {
 
     void playerChoiceState()
     {
+        for (int i = 0; i < Hand.transform.childCount; i++)
+        {
+            Hand.transform.GetChild(i).GetComponent<Draggable>().updateToTrueIsDragable();
+        }
         isMove++;
         if (isMove == 1)
         {
+            Onbutton.GetComponent<EndTurn>().isButtonActive = true;
             //Reset the END TURN BUTTON
-            EndTurnButton.GetComponent<EndTurn>().updateToOn();
-            ComboButton.GetComponent<EndTurn>().updateToOff();
+            Onbutton.gameObject.SetActive(true);
+            OFF.SetActive(false);
+            
+
             //let player move cards
-            for (int i = 0; i < Hand.transform.childCount; i++)
-            {
-                Hand.transform.GetChild(i).GetComponent<Draggable>().updateToTrueIsDragable();
-            }
+            
+        }
+        
+        
+        
+        //set up board, left to right stat calculation
+        if (Board.transform.childCount == 2)
+        {
+            EndTurnButton.GetComponent<MageEndTurn>().checkHand();
+        }
+        else
+        {
+            EndTurnButton.GetComponent<HunterEndTurn>().damageCheck();
         }
 
-        //set up board, left to right stat calculation
-        
-        ComboButton.GetComponent<MageEndTurn>().checkHand();
-        EndTurnButton.GetComponent<HunterEndTurn>().damageCheck();
+
+        Debug.Log("Current State: " + Onbutton.GetComponent<EndTurn>().isButtonActive);
         //lock player move cards when END TURN BUTTON HIT!
-        if (EndTurnButton.GetComponent<EndTurn>().isButtonActive == false || ComboButton.GetComponent<EndTurn>().isButtonActive == true)
+        if (Onbutton.GetComponent<EndTurn>().isButtonActive == false)
         {
-
-            if (EndTurnButton.GetComponent<EndTurn>().isButtonActive == false)
-            {
-                currentState = State.HUNTER_ATTACK;
-            }
-            else if (ComboButton.GetComponent<EndTurn>().isButtonActive == true)
-            {
-
-
-
-                currentState = State.MAGE_ATTACK;
-            }
-            EndTurnButton.GetComponent<EndTurn>().updateToOff();
-            ComboButton.GetComponent<EndTurn>().updateToOff();
+            currentState = State.HUNTER_ATTACK;
             for (int i = 0; i < Hand.transform.childCount; i++)
             {
                 Hand.transform.GetChild(i).GetComponent<Draggable>().updateToFalseIsDragable();
             }
-            //currentState = State.PLAYER_ATTACK;
             isMove = 0;
         }
+
     }
+    
 
     void mageAttackState()
     {
@@ -198,30 +205,46 @@ public class BattleState : MonoBehaviour {
         }
     }
 
+    void dosomething()
+    {
+        Onbutton.GetComponent<EndTurn>().isButtonActive = false;
+        Onbutton.gameObject.SetActive(false);
+        OFF.gameObject.SetActive(true);
+    }
+
     void hunterAttackState()
     {
         if (isMove == 0)
         {
-            HunterAttack.GetComponent<PlayerAttack>().playerAttack();
+            //HunterAttack.GetComponent<PlayerAttack>().playerAttack();
             isMove++;
         }
         //move to STATUS_CALCULATE
         else {
             if (HunterAttack.GetComponent<PlayerAttack>().isVisible == false)
             {
-                isMove = 0;
-                for (int i = 0; i < Board.transform.childCount; i++)
+                if(Board.transform.childCount == 2)
                 {
-                    damage++;
+                    Board.GetComponent<CardCombo>().comboCheck();
+                    Board.GetComponent<CardCombo>().comboAction();
+                    currentState = State.STATUS_CALCULATE;
                 }
-                //Debug.Log("ATTACK MONSTER WITH: " + damage + " damage");
-                for (int i = 0; i < MonsterArea.transform.childCount; i++)
+                else
                 {
-                    MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(damage);
-                    MonsterArea.transform.GetChild(i).GetComponent<CardTextModifier>().updateCardData();
+                    isMove = 0;
+                    for (int i = 0; i < Board.transform.childCount; i++)
+                    {
+                        damage++;
+                    }
+                    //Debug.Log("ATTACK MONSTER WITH: " + damage + " damage");
+                    for (int i = 0; i < MonsterArea.transform.childCount; i++)
+                    {
+                        MonsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(damage);
+                        MonsterArea.transform.GetChild(i).GetComponent<CardTextModifier>().updateCardData();
+                    }
+                    damage = 0;
+                    currentState = State.STATUS_CALCULATE;
                 }
-                damage = 0;
-                currentState = State.STATUS_CALCULATE;
             }
 
         }

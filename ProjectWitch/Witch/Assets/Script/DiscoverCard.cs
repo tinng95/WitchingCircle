@@ -5,6 +5,7 @@ public class DiscoverCard : MonoBehaviour {
 
     public GameObject PopUp = null;
     public GameObject Board = null;
+    public GameObject Hand = null;
 
     public Button leftCard;
     public Button rightCard;
@@ -53,15 +54,61 @@ public class DiscoverCard : MonoBehaviour {
             rightCard.onClick.AddListener(delegate { TaskOnClick(right, "RED"); });
         }
     }
+
+    public void chooseCardRestricted(string left, string right, bool leftInteract, bool rightInteract)
+    {
+        popUp.SetActive(true);
+        if (isDisUp == false)
+        {
+            isDisUp = true;
+
+            popUp.GetComponent<DrawCard>().getSpecificCard(left);
+            popUp.GetComponent<DrawCard>().getSpecificCard(right);
+        }
+
+        leftCard = popUp.transform.GetChild(0).GetComponent<Button>();
+        rightCard = popUp.transform.GetChild(1).GetComponent<Button>();
+
+        leftCard.interactable = leftInteract;
+        rightCard.interactable = rightInteract;
+
+        //GG GREEN TO BLUE OR RED
+        if (left == "BLUE" && right == "RED")
+        {
+            rightCard.onClick.AddListener(delegate { TaskOnClick2(right, "GREEN"); });
+        }
+    }
+
+
+
+
     void TaskOnClick(string cardPick, string cardDiscard)
     {
-        //Debug.Log("WILL REPLACE " + cardDiscard + " with " + cardPick);
         Board.GetComponent<CardCombo>().cardConversion(cardDiscard, cardPick);
         for (int i = 0; i < popUp.transform.childCount; i++)
         {
             Destroy(popUp.transform.GetChild(i).gameObject);
         }
         popUp.SetActive(false);
+        isDisUp = false;
+    }
+
+    void TaskOnClick2(string cardPick, string cardDiscard)
+    {
+        popUp.SetActive(false);
+        for (int i = 0; i < popUp.transform.childCount; i++)
+        {
+            Destroy(popUp.transform.GetChild(i).gameObject);
+        }
+        int temp = Hand.transform.childCount;
+        for (int i = 0; i < Hand.transform.childCount; i++)
+        {
+            Destroy(Hand.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < temp; i++)
+        {
+            Hand.GetComponent<DrawCard>().getSpecificCard("RED");
+        }
         isDisUp = false;
     }
 

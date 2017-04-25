@@ -1,0 +1,50 @@
+Something's off...
+DRAW
+Damn! She wasn't ready for this!
+NEXT
+Allow me to help!
+DRAW
+(Got a Blue and a Green Card)
+NEXT
+(This is the Blue Element, which allows me to substantiate the Arsenal more!)
+NEXT
+(This is the Green Element, which allows me to change cards to what we need!)
+NEXT
+(There are many different combos; use the book tooltip for reference!)
+NEXT
+Let's do this!
+(Drag Blue and Red Cards to Ready Zone)
+BUTTONOFF
+NEXT
+(Click on the button to activate the combo)
+BUTTONOFF
+(The turn ends)
+NEXT
+(Got 2 Green Elements)
+NEXT
+DRAW
+(At the end of each turn, draw 2 cards)
+NEXT
+I know exactly what we need!
+(Drag 2 Green cards to the Ready Zone)
+BUTTONOFF
+NEXT
+(Click on the Bow Button to activate the combo!)
+BUTTONOFF
+(Once the Bow is activated, the turn completes)
+NEXT
+(Choose the Red card from the two!)
+She needs to take this thing down!
+CHOOSE
+NEXT
+She's ready!
+Time to end this!
+BUTTONOFF
+NEXT
+(Click on the Bow Button to activate the combo!)
+BUTTONOFF
+(The turn ends)
+NEXT
+What?! There's more of them?
+Get Ready!
+END

@@ -1,43 +1,43 @@
-Hi, The name is Red.
-Let see what you have left in our arsenal.
+This...
+Reminds me of my first hunt.
 DRAW
-Perfect Red, let use it!
+Get ready!
 NEXT
-This area is call the Arsenal.
-This is where magic and shit will appear out of no where.
+(This is the Arsenal)
+(This is where cards are stored for use)
 NEXT
-Over there is the BattleZone.
-We use our Arsenal's Tool to set up tatical attack.
+(Over there is the Ready Zone)
+(Use cards from the Arsenal to set up a tatical attack!)
 NEXT
-Drag the Fire Element into the BattleField
+(Drag the Red Card into the Ready Zone)
 BUTTONOFF
 NEXT
-Once BattleZone set up, I can activate my bow for an attack
-Click on the Bow Button to complete attack
+(Once Ready Zone is set up, the Bow Button is ready!)
+(Click on the Bow Button to attack!)
 BUTTONOFF
-Once the bow activated, the turn will be complete.
+(The turn ends here)
 NEXT
-The monster health goes down with the ammount of attack I deal.
+(The Monster's health decreases with the damage dealt)
 NEXT
-The counter will also go down each time I attack.
-If the counter hit 0, it's game over!
+(The Monster's Emerge Counter decreases after each turn...)
+(If the Counter hits 0, it's Game Over!)
 NEXT
-Let see what else we have in the arsenal.
+Damn, that wasn't enough!
 DRAW
-Great, two Fire Elements!
+This is it!
 NEXT
-This number indicate the max elements I can attack with on the BattleZone
+(This number indicates the maximum cards that can be placed in the Ready Zone)
 NEXT
-Let drag both Fire Elements to BattleZone to make a combo!
+(Drag both Red Cards to Ready Zone to make a combo!)
 BUTTONOFF
 NEXT
-Click on the Bow Button to complete attack
+(Click on the Bow Button to complete the attack)
 BUTTONOFF
-Doing combo grant extra effect.
+(Remember that combos grant extra effects)
 NEXT
-It's dead!
+It's... over.
 DESTROY
-Good Hunt!
+Phew...
 NEXT
-WHO IS THAT?
+HUH!?
 END

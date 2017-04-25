@@ -6,6 +6,7 @@ public class RedTutorial : MonoBehaviour {
 
     public Button next;
 
+
     //for tutorial dialog
     public TextAsset TextFile;
     public string[] DialogLines;
