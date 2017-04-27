@@ -5,7 +5,7 @@ public class WitchRedTutorial : MonoBehaviour {
 
     public Button next;
 
-
+    public GameObject bookButton;
     //for tutorial dialog
     public TextAsset TextFile;
     public string[] DialogLines;
@@ -72,6 +72,7 @@ public class WitchRedTutorial : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        bookButton.SetActive(false);
         next.onClick.AddListener(addLine);
         currentState = State.START_DIALOG;
         MonsterArea.GetComponent<SpawnMonster>().getSpecificCard("ELITE");
@@ -117,10 +118,14 @@ public class WitchRedTutorial : MonoBehaviour {
                 if (isMove == 1) { currentState = State.EXPLAN_THE_CARD_COMBO_OPTION; isMove = 0; };
                 break;
             case (State.EXPLAN_THE_CARD_COMBO_OPTION):
+                bookButton.SetActive(true);
                 explain_book_combo();
-                if (isMove == 1) { currentState = State.DRAG_BLUE_RED_CARD; isMove = 0; };
+                if (isMove == 1) { currentState = State.DRAG_BLUE_RED_CARD; isMove = 0;
+                    bookButton.SetActive(false);
+                };
                 break;
             case (State.DRAG_BLUE_RED_CARD):
+                
                 dragBlueRed();
                 if (isMove == 1) { currentState = State.END_BUTTON_1; isMove = 0; };
                 break;

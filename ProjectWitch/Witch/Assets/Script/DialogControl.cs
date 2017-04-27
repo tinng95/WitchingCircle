@@ -31,10 +31,11 @@ public class DialogControl : MonoBehaviour
 
 
     public GameObject redImage;
-
+    public GameObject witchImage;
     // Use this for initialization
     void Start()
     {
+        witchImage.gameObject.SetActive(false);
         redImage.gameObject.SetActive(false);
         skip.gameObject.SetActive(false);
         skip.onClick.AddListener(Change);
@@ -61,6 +62,7 @@ public class DialogControl : MonoBehaviour
         if (DialogLines[CourrentLine].Contains(LeftCharName))
         {
             redImage.gameObject.SetActive(true);
+            witchImage.gameObject.SetActive(false);
             DisableEnemyNameBox();
             EnableCharacterNameBox();
             CourrentLine++;
@@ -68,6 +70,7 @@ public class DialogControl : MonoBehaviour
         else if (DialogLines[CourrentLine].Contains(RightCharName))
         {
             redImage.gameObject.SetActive(false);
+            witchImage.gameObject.SetActive(true);
             DisableCharacterNameBox();
             EnableEnemyNameBox();
             CourrentLine++;
@@ -82,6 +85,8 @@ public class DialogControl : MonoBehaviour
         }
         else if (DialogLines[CourrentLine].Contains(NoneString))
         {
+            redImage.SetActive(false);
+            witchImage.SetActive(false);
             Debug.Log("NONE");
             DialogBox.SetActive(true);
             LeftCharacter.SetActive(false);
