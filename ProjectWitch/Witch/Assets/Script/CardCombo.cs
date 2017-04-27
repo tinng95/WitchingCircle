@@ -35,7 +35,6 @@ public class CardCombo : MonoBehaviour {
         greenCount = 0;
         blueCount = 0;
         string temp;
-        Debug.Log("BTICH GIVE ME NUMBER: " + Board.transform.childCount);
         for (int i = 0; i< Board.transform.childCount; i++)
         {
             temp = Board.transform.GetChild(i).GetComponent<CardStats>().getName();
@@ -70,7 +69,7 @@ public class CardCombo : MonoBehaviour {
         //RR  deal 3 dmg instancely
         else if (redCount == 2)
         {
-            return "Deal 3 Damages";
+            return "Deal 4 Damage";
         }
         //GG convert all left over GREEN card in hand to w/e Color you want, right now just to RED
         else if (greenCount == 2)
@@ -90,7 +89,7 @@ public class CardCombo : MonoBehaviour {
         //BR
         else if (blueCount == 1 && redCount == 1)
         {
-            return "Deal 2 Damages, Draw 1 Card";
+            return "Deal 2 Damage, Draw 1 Card";
         }
         else {
             return "ERRROR!!";
@@ -109,7 +108,7 @@ public class CardCombo : MonoBehaviour {
         {
             for (int i = 0; i < MonsterArea.transform.childCount; i++)
             {
-                monsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(3);
+                monsterArea.transform.GetChild(i).GetComponent<MonsterStats>().minusHealth(4);
                 monsterArea.transform.GetChild(i).GetComponent<CardTextModifier>().updateCardData();
             }
         }

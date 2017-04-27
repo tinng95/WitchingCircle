@@ -59,6 +59,11 @@ public class DialogControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (CourrentLine == 5)
+        {
+            Debug.Log("HELLLO!");
+            skip.gameObject.SetActive(true);
+        }
         if (DialogLines[CourrentLine].Contains(LeftCharName))
         {
             redImage.gameObject.SetActive(true);
@@ -110,11 +115,7 @@ public class DialogControl : MonoBehaviour
             DisableCharacterNameBox();
             DisableEnemyNameBox();
         }
-        if (CourrentLine == 5)
-        {
-            Debug.Log("HELLLO!");
-            skip.gameObject.SetActive(true);
-        }
+        
     }
 
     void Change()

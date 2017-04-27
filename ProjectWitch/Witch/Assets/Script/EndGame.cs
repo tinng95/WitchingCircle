@@ -21,11 +21,13 @@ public class EndGame : MonoBehaviour {
     public void clickYES()
     {
         Debug.Log("REPLAY!");
-        SceneManager.LoadScene("MainGame", LoadSceneMode.Single);
+        //SceneManager.LoadScene("MainGame", LoadSceneMode.Single);
+        YES.GetComponent<ChangeScene>().loadScene();
     }
 
     public void clickNO()
     {
+        NO.GetComponent<ChangeScene>().loadScene();
         Debug.Log("THANK YOU FOR PLAYING, NOT YET IMPLEMENT NO BUTTON!!!");
     }
 }

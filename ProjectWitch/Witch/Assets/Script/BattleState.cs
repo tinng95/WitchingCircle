@@ -140,26 +140,6 @@ public class BattleState : MonoBehaviour {
 
     void playerChoiceState()
     {
-        for (int i = 0; i < Hand.transform.childCount; i++)
-        {
-            Hand.transform.GetChild(i).GetComponent<Draggable>().updateToTrueIsDragable();
-        }
-        isMove++;
-        if (isMove == 1)
-        {
-            Onbutton.GetComponent<EndTurn>().isButtonActive = true;
-            //Reset the END TURN BUTTON
-            Onbutton.gameObject.SetActive(true);
-            OFF.SetActive(false);
-            
-
-            //let player move cards
-            
-        }
-        
-        
-        
-        //set up board, left to right stat calculation
         if (Board.transform.childCount == 2)
         {
             EndTurnButton.GetComponent<MageEndTurn>().checkHand();
@@ -170,10 +150,37 @@ public class BattleState : MonoBehaviour {
         }
 
 
+        
+        isMove++;
+        if (isMove == 1)
+        {
+            for (int i = 0; i < Hand.transform.childCount; i++)
+            {
+                Hand.transform.GetChild(i).GetComponent<Draggable>().updateToTrueIsDragable();
+            }
+            Onbutton.gameObject.SetActive(true);
+            Onbutton.GetComponent<EndTurn>().isButtonActive = true;
+            //Reset the END TURN BUTTON
+            //Onbutton.gameObject.SetActive(true);
+            //OFF.SetActive(false);
+            
+
+            //let player move cards
+            
+        }
+        
+        
+        
+        //set up board, left to right stat calculation
+        
+
+
         Debug.Log("Current State: " + Onbutton.GetComponent<EndTurn>().isButtonActive);
         //lock player move cards when END TURN BUTTON HIT!
         if (Onbutton.GetComponent<EndTurn>().isButtonActive == false)
         {
+            OFF.SetActive(true);
+            Onbutton.gameObject.SetActive(false);
             currentState = State.HUNTER_ATTACK;
             for (int i = 0; i < Hand.transform.childCount; i++)
             {

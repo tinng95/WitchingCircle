@@ -1,6 +1,6 @@
 Something's off...
 DRAW
-Damn! She wasn't ready for this!
+Damn! Another monster!
 NEXT
 Allow me to help!
 DRAW
@@ -20,7 +20,7 @@ NEXT
 BUTTONOFF
 (The turn ends)
 NEXT
-(Got 2 Green Elements)
+(Got a Green Element from the combo)
 NEXT
 DRAW
 (At the end of each turn, draw 2 cards)
@@ -37,7 +37,7 @@ NEXT
 She needs to take this thing down!
 CHOOSE
 NEXT
-She's ready!
+The attack is ready!
 Time to end this!
 BUTTONOFF
 NEXT

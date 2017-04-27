@@ -26,7 +26,7 @@ Damn, that wasn't enough!
 DRAW
 This is it!
 NEXT
-(This number indicates the maximum cards that can be placed in the Ready Zone)
+...
 NEXT
 (Drag both Red Cards to Ready Zone to make a combo!)
 BUTTONOFF

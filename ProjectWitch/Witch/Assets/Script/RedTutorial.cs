@@ -72,8 +72,10 @@ public class RedTutorial : MonoBehaviour {
         healthGuide.gameObject.SetActive(false);
         next.onClick.AddListener(addLine);
         currentState = State.START_DIALOG;
+        
         MonsterArea.GetComponent<SpawnMonster>().getSpecificCard("ELITE");
-
+        MonsterArea.transform.GetChild(0).GetComponent<MonsterStats>().minusHealth(2);
+        MonsterArea.transform.GetChild(0).GetComponent<CardTextModifier>().updateCardData();
 
         if (TextFile != null)
         {
@@ -92,6 +94,14 @@ public class RedTutorial : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (Board.transform.childCount == 2)
+        {
+            EndTurnButton.GetComponent<MageEndTurn>().checkHand();
+        }
+        else
+        {
+            EndTurnButton.GetComponent<HunterEndTurn>().damageCheck();
+        }
         Debug.Log(currentState);
         switch (currentState)
         {

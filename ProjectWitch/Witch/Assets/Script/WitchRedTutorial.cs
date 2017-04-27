@@ -23,7 +23,7 @@ public class WitchRedTutorial : MonoBehaviour {
 
     public bool DialogBoxActive = true;
 
-
+    public GameObject book;
     //guide arrow
     public GameObject handGuide;
     public GameObject boardGuide;
@@ -72,11 +72,14 @@ public class WitchRedTutorial : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        book.SetActive(false);
+
         bookButton.SetActive(false);
         next.onClick.AddListener(addLine);
         currentState = State.START_DIALOG;
         MonsterArea.GetComponent<SpawnMonster>().getSpecificCard("ELITE");
-
+        MonsterArea.transform.GetChild(0).GetComponent<MonsterStats>().minusHealth(1);
+        MonsterArea.transform.GetChild(0).GetComponent<CardTextModifier>().updateCardData();
 
         if (TextFile != null)
         {
@@ -97,6 +100,14 @@ public class WitchRedTutorial : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (Board.transform.childCount == 2)
+        {
+            EndTurnButton.GetComponent<MageEndTurn>().checkHand();
+        }
+        else
+        {
+            EndTurnButton.GetComponent<HunterEndTurn>().damageCheck();
+        }
         Debug.Log(currentState);
         switch (currentState)
         {
@@ -118,6 +129,7 @@ public class WitchRedTutorial : MonoBehaviour {
                 if (isMove == 1) { currentState = State.EXPLAN_THE_CARD_COMBO_OPTION; isMove = 0; };
                 break;
             case (State.EXPLAN_THE_CARD_COMBO_OPTION):
+                book.SetActive(true);
                 bookButton.SetActive(true);
                 explain_book_combo();
                 if (isMove == 1) { currentState = State.DRAG_BLUE_RED_CARD; isMove = 0;
@@ -270,9 +282,9 @@ public class WitchRedTutorial : MonoBehaviour {
 
     void attackMonster1()
     {
-        MonsterArea.transform.GetChild(0).GetComponent<MonsterStats>().minusHealth(1);
+        MonsterArea.transform.GetChild(0).GetComponent<MonsterStats>().minusHealth(2);
         MonsterArea.transform.GetChild(0).GetComponent<MonsterStats>().minusCounter(1);
-        StartCoroutine(drawCard("GREEN", "GREEN"));
+        StartCoroutine(drawCard("GREEN", "NONE"));
         MonsterArea.transform.GetChild(0).GetComponent<CardTextModifier>().updateCardData();
         Destroy(temp);
         Destroy(temp2);
@@ -304,12 +316,12 @@ public class WitchRedTutorial : MonoBehaviour {
             Hand.transform.GetChild(1).GetComponent<Draggable>().updateToTrueIsDragable();
             Hand.transform.GetChild(2).GetComponent<Draggable>().updateToTrueIsDragable();
             Hand.transform.GetChild(3).GetComponent<Draggable>().updateToTrueIsDragable();
-            Hand.transform.GetChild(4).GetComponent<Draggable>().updateToTrueIsDragable();
+            //Hand.transform.GetChild(4).GetComponent<Draggable>().updateToTrueIsDragable();
             temp = Hand.transform.GetChild(0).gameObject;
             temp2 = Hand.transform.GetChild(1).gameObject;
             temp3 = Hand.transform.GetChild(2).gameObject;
             temp4 = Hand.transform.GetChild(3).gameObject;
-            temp5 = Hand.transform.GetChild(4).gameObject;
+            //temp5 = Hand.transform.GetChild(4).gameObject;
             next.gameObject.SetActive(false);
 
         }
@@ -319,8 +331,7 @@ public class WitchRedTutorial : MonoBehaviour {
             && temp2.GetComponent<Draggable>().dragging == false
             && temp3.GetComponent<Draggable>().dragging == false
             && temp4.GetComponent<Draggable>().dragging == false
-            && temp5.GetComponent<Draggable>().dragging == false
-            && Board.transform.childCount == 2 && Hand.transform.childCount == 3)
+            && Board.transform.childCount == 2 && Hand.transform.childCount == 2)
             {
                 CourrentLine += 2;
                 isMove = 0;
@@ -328,7 +339,7 @@ public class WitchRedTutorial : MonoBehaviour {
                 temp2.GetComponent<Draggable>().updateToFalseIsDragable();
                 temp3.GetComponent<Draggable>().updateToFalseIsDragable();
                 temp4.GetComponent<Draggable>().updateToFalseIsDragable();
-                temp5.GetComponent<Draggable>().updateToFalseIsDragable();
+                //temp5.GetComponent<Draggable>().updateToFalseIsDragable();
             }
         }
         continuteDialog();
@@ -368,10 +379,10 @@ public class WitchRedTutorial : MonoBehaviour {
             isMove = 4;
             Hand.transform.GetChild(0).GetComponent<Draggable>().updateToTrueIsDragable();
             Hand.transform.GetChild(1).GetComponent<Draggable>().updateToTrueIsDragable();
-            Hand.transform.GetChild(2).GetComponent<Draggable>().updateToTrueIsDragable();
+            //Hand.transform.GetChild(2).GetComponent<Draggable>().updateToTrueIsDragable();
             temp = Hand.transform.GetChild(0).gameObject;
             temp2 = Hand.transform.GetChild(1).gameObject;
-            temp3 = Hand.transform.GetChild(2).gameObject;
+            //temp3 = Hand.transform.GetChild(2).gameObject;
             next.gameObject.SetActive(false);
 
         }
@@ -379,14 +390,13 @@ public class WitchRedTutorial : MonoBehaviour {
         {
             if (temp.GetComponent<Draggable>().dragging == false
             && temp2.GetComponent<Draggable>().dragging == false
-            && temp3.GetComponent<Draggable>().dragging == false
-            && Board.transform.childCount == 2 && Hand.transform.childCount == 1)
+            && Board.transform.childCount == 2 && Hand.transform.childCount == 0)
             {
                 CourrentLine += 2;
                 isMove = 0;
                 temp.GetComponent<Draggable>().updateToFalseIsDragable();
                 temp2.GetComponent<Draggable>().updateToFalseIsDragable();
-                temp3.GetComponent<Draggable>().updateToFalseIsDragable();
+                //temp3.GetComponent<Draggable>().updateToFalseIsDragable();
             }
         }
         continuteDialog();
@@ -394,7 +404,7 @@ public class WitchRedTutorial : MonoBehaviour {
 
     void attackMonster2()
     {
-        MonsterArea.transform.GetChild(0).GetComponent<MonsterStats>().minusHealth(1);
+        MonsterArea.transform.GetChild(0).GetComponent<MonsterStats>().minusHealth(4);
         MonsterArea.transform.GetChild(0).GetComponent<MonsterStats>().minusCounter(1);
         MonsterArea.transform.GetChild(0).GetComponent<CardTextModifier>().updateCardData();
         for(int i = 0; i < Board.transform.childCount; i++)
@@ -443,7 +453,12 @@ public class WitchRedTutorial : MonoBehaviour {
         Debug.Log("DRAW PLEASE!!");
         Hand.GetComponent<DrawCard>().getSpecificCard(card1);
         yield return new WaitForSeconds(0.3f);
-        Hand.GetComponent<DrawCard>().getSpecificCard(card2);
-        yield return new WaitForSeconds(0.3f);
+
+        if(card2 != "NONE")
+        {
+            Hand.GetComponent<DrawCard>().getSpecificCard(card2);
+            yield return new WaitForSeconds(0.3f);
+        }
+        
     }
 }

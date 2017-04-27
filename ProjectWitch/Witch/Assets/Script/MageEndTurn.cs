@@ -26,9 +26,9 @@ public class MageEndTurn : MonoBehaviour {
         }
         else
         {
-           // Debug.Log("COMBO NOT READY!!!!");
+            Debug.Log("COMBO NOT READY!!!!");
             //OnButton.SetActive(false);
-           // OffButton.SetActive(true);
+            //OffButton.SetActive(true);
         }
     }
 }
